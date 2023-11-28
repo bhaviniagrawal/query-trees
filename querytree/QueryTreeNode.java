@@ -1,8 +1,6 @@
 package querytree;
 import java.util.Map;
 
-import org.w3c.dom.Node;
-
 import lib.TreePrinter.PrintableNode;
 
 /**
@@ -50,6 +48,16 @@ public class QueryTreeNode implements PrintableNode{
         num_children = 0;
         left = null;
         right = null;
+    }
+
+    // Shallow copy constructor
+    public QueryTreeNode(QueryTreeNode other) {
+        this.opertaror = other.opertaror;
+        this.parameters = other.parameters.clone(); 
+        this.num_parameters = other.num_parameters;
+        this.num_children = other.num_children;
+        this.left = other.left; 
+        this.right = other.right;
     }
 
     /**
@@ -101,6 +109,21 @@ public class QueryTreeNode implements PrintableNode{
         return result;
     }
 
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        QueryTreeNode other = (QueryTreeNode) obj;
+        return this.opertaror.equals(other.opertaror);
+    }
+
+
+    
     @Override
     public PrintableNode getLeft() {
         return left;
@@ -115,4 +138,9 @@ public class QueryTreeNode implements PrintableNode{
     public String getText() {
         return this.toString();
     }
+
+    public String getOperator(){
+        return this.opertaror;
+    }
+
 }
